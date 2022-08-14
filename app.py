@@ -34,11 +34,12 @@ class ModelHelpers():
 class Model_info(Resource):
 
     def get(self):
-        return {
+        iris_model_components = {
             "models": ["Random_forest","Naive_bayes","SVM","Ensemble"],
-            "necessary features": jsonify(varOrder),
-            "output types": [jsonify(name) for name, value in ModelOutput.__members__.items()]
+            "necessary features": varOrder,
+            "outputs": ["pred","prob"]
         }
+        return jsonify(iris_model_components)
 
 
 #all of the below classes could probably benefit from an the use of an Abtract Base Class
@@ -55,7 +56,7 @@ class Random_forest(Resource,ModelHelpers):
             predictions = class_names[model.predict(df)]
             return jsonify(predictions), 200
         elif output == "prob":
-            probabilities = pd.dataframe(model.predict_proba(), columns = varOrder)
+            probabilities = pd.dataframe(model.predict_proba(df), columns = varOrder)
             return jsonify(probabilities), 200
         else:
             return {"message": "unknown error"}, 404
