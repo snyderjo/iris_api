@@ -1,9 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, reqparse
 from joblib import load
-from enum import Enum
-from pandas import read_json
-from werkzeug.routing import ValidationError, BaseConverter
+import pandas as pd
 
 
 app = Flask(__name__)
@@ -17,15 +15,15 @@ class ModelHelpers():
 
     parser = reqparse.RequestParser()
     #for XVar in varOrder:
-    parser.add_argument("petal length (cm)", type = float, required = True)
-    parser.add_argument("petal width (cm)", type = float, required = True)
-    parser.add_argument("sepal length (cm)", type = float, required = True)
-    parser.add_argument("sepal width (cm)", type = float, required = True)
+    parser.add_argument("petal length (cm)", type=list, location = "json", required = True, help = "PLen cannont be left blank")
+    parser.add_argument("petal width (cm)", type=list, location = "json", required = True, help = "PWid cannont be left blank")
+    parser.add_argument("sepal length (cm)", type=list, location = "json", required = True, help = "SLen cannont be left blank")
+    parser.add_argument("sepal width (cm)", type=list, location = "json", required = True, help = "SWid cannont be left blank")
 
     def testDataFrame(jsonData):
         #switch json to a dataframe
-        df = read_json(jsonData)
-        #change the orde of
+        df = pd.DataFrame.from_dict(jsonData)
+        #change the orde of the variables to match that of the input data
         df = df[varOrder]
         return df
 
@@ -44,49 +42,92 @@ class Model_info(Resource):
 
 #all of the below classes could probably benefit from an the use of an Abtract Base Class
 
-class Random_forest(Resource,ModelHelpers):
+class Random_forest(Resource):
     def post(self, output):
         #grab data
-        data = cls.parser.parse_args()
-        X_test = cls.testDataFrame(data)
+        parser = ModelHelpers.parser
+        data = parser.parse_args()
+        X_test = ModelHelpers.testDataFrame(data)
 
         #load the model
-        model = load("rf","rb")
+        model = load("rf.joblib","r")
         if output == "pred":
-            predictions = class_names[model.predict(df)]
-            return jsonify(predictions), 200
+            predictions = class_names[model.predict(X_test)]
+            print(predictions)
+            return {"predictions":predictions.tolist()}, 200
         elif output == "prob":
-            probabilities = pd.dataframe(model.predict_proba(df), columns = varOrder)
-            return jsonify(probabilities), 200
+            probabilities = pd.DataFrame(model.predict_proba(X_test), columns = class_names)
+            return {"probabilities":probabilities.to_dict()}
         else:
-            return {"message": "unknown error"}, 404
+            return {"message": "unknown error"}
 
 
 
-class Naive_bayes(Resource,ModelHelpers):
+class Naive_bayes(Resource):
     def post(self, output):
-        data = cls.parser.parse_args()
-        pass
+        #grab data
+        parser = ModelHelpers.parser
+        data = parser.parse_args()
+        X_test = ModelHelpers.testDataFrame(data)
+
+        #load the model
+        model = load("gnb.joblib","r")
+        if output == "pred":
+            predictions = class_names[model.predict(X_test)]
+            print(predictions)
+            return {"predictions":predictions.tolist()}, 200
+        elif output == "prob":
+            probabilities = pd.DataFrame(model.predict_proba(X_test), columns = class_names)
+            return {"probabilities":probabilities.to_dict()}
+        else:
+            return {"message": "unknown error"}
 
 
-class SVM(Resource,ModelHelpers):
+class SVM(Resource):
     def post(self, output):
-        data = cls.parser.parse_args()
-        pass
+        #grab data
+        parser = ModelHelpers.parser
+        data = parser.parse_args()
+        X_test = ModelHelpers.testDataFrame(data)
+
+        #load the model
+        model = load("svm.joblib","r")
+        if output == "pred":
+            predictions = class_names[model.predict(X_test)]
+            print(predictions)
+            return {"predictions":predictions.tolist()}, 200
+        elif output == "prob":
+            probabilities = pd.DataFrame(model.predict_proba(X_test), columns = class_names)
+            return {"probabilities":probabilities.to_dict()}
+        else:
+            return {"message": "unknown error"}
 
 
-class Ensemble(Resource,ModelHelpers):
+class Ensemble(Resource):
     def post(self, output):
-        #data = cls.parser.parse_args()
-        #df = cls.testDataFrame(data)
-        pass
+        #grab data
+        parser = ModelHelpers.parser
+        data = parser.parse_args()
+        X_test = ModelHelpers.testDataFrame(data)
+
+        #load the model
+        model = load("ensemble.joblib","r")
+        if output == "pred":
+            predictions = class_names[model.predict(X_test)]
+            print(predictions)
+            return {"predictions":predictions.tolist()}, 200
+        elif output == "prob":
+            probabilities = pd.DataFrame(model.predict_proba(X_test), columns = class_names)
+            return {"probabilities":probabilities.to_dict()}
+        else:
+            return {"message": "unknown error"}
 
 
 api.add_resource(Model_info,"/list")
-api.add_resource(Random_forest,"/Random_forest/<any(pred,prob):output>")
-api.add_resource(Naive_bayes,"/Naive_bayes/<any(pred,prob):output>")
-api.add_resource(SVM,"/SVM/<any(pred,prob):output>")
-api.add_resource(Ensemble,"/Ensemble/<any(pred,prob):output>")
+api.add_resource(Random_forest,"/Random_forest/<any(u'pred',u'prob'):output>")
+api.add_resource(Naive_bayes,"/Naive_bayes/<any(u'pred',u'prob'):output>")
+api.add_resource(SVM,"/SVM/<any(u'pred',u'prob'):output>")
+api.add_resource(Ensemble,"/Ensemble/<any(u'pred',u'prob'):output>")
 
 if __name__ == "__main__":
-    app.run(port=5000, debug =  True)
+    app.run(port=5000, debug = True)
