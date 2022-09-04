@@ -130,4 +130,4 @@ api.add_resource(SVM,"/SVM/<any(u'pred',u'prob'):output>")
 api.add_resource(Ensemble,"/Ensemble/<any(u'pred',u'prob'):output>")
 
 if __name__ == "__main__":
-    app.run(port=5000, debug = True)
+    app.run()
