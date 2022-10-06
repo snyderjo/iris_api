@@ -14581,7 +14581,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Iris-Model-and-API">Iris Model and API<a class="anchor-link" href="#Iris-Model-and-API">&#182;</a></h2><p>The purpose behind this project is many-fold.</p>
 <ol>
-<li>Demonstrate the use and knowledge of python's sci-kit learn and machine learning,  </li>
+<li>Demonstrate the use and knowledge of python's <a href="https://scikit-learn.org/stable/index.html">scikit-learn</a> and machine learning,  </li>
 <li>Learn and solidify knowledge of REST prinipals, and  </li>
 <li>Extend knowledge of API's and deploy a locally-developed API to the cloud.  </li>
 </ol>
@@ -14597,7 +14597,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Data">Data<a class="anchor-link" href="#Data">&#182;</a></h3><p>The Iris data set is included with python's sci-kit learn package.  It was collected decades ago by a famous statistician and appears often in statistics curriculum.<br>
+<h3 id="Data">Data<a class="anchor-link" href="#Data">&#182;</a></h3><p>The <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">Iris data set</a> is included with python's sci-kit learn package.  It was collected decades ago by a famous statistician and appears often in statistics curriculum.<br>
 The data itself include a well-balanced list of three distinct iris species, and four continuous measurements of each.  There's, honestly, little in the way of noise in the process of identifying species by these metrics.  They are largely linearly separable.</p>
 <p>I split the data into mutually exclusive test-and-training sets</p>
 
@@ -14619,7 +14619,8 @@ The data itself include a well-balanced list of three distinct iris species, and
 <li>Random Forest  </li>
 <li>Support Vector Machine  </li>
 </ul>
-<p>I, also, added an enseamble model of these three.</p>
+<p>I, also, added an ensemble model of these three.
+Find the code <a href="https://github.com/snyderjo/iris_api/blob/master/Iris%20classifier.ipynb">here</a>.</p>
 
 </div>
 </div>
@@ -14633,7 +14634,8 @@ The data itself include a well-balanced list of three distinct iris species, and
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Deployment">Deployment<a class="anchor-link" href="#Deployment">&#182;</a></h3><p>I estimated the models using scikit-learn and developed the API using Flask and Flask-RESTful in a virutal environment in python 3.10.</p>
 <p>I tested the API locally using postman.</p>
-<p>I pushed everything to a github repository, and used this to deploy the API on Heroku.  Specifically, it is available on the subdomain <code>snyderjos-iris-api</code> of <code>herokuapp.com</code>, which provides hosting (for free!).</p>
+<p>I pushed everything to a <a href="https://github.com/snyderjo/iris_api">github repository</a>, and used this to deploy the API on <a href="https://www.heroku.com/">Heroku</a>.  Specifically, it is available on the subdomain <code>snyderjos-iris-api</code> of <code>herokuapp.com</code>, which provides hosting (for free!).</p>
+<p><strong>Unfotunate update: Heroku is discontinuing its free tier as of late November 2022--This will become unavailable in December of 2022</strong></p>
 
 </div>
 </div>
@@ -14953,20 +14955,6 @@ The data itself include a well-balanced list of three distinct iris species, and
 <p>Do you forsee implementing any of the above?<br>
 <em>In all honesty, no.  Implementing these would entail a whole lot of development and testing.  There are other projects that are of greater interest and would be more in line with my interests.  Perfection only holds so many dividends</em><br>
 ¯\_(ツ)_/¯</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Update">Update<a class="anchor-link" href="#Update">&#182;</a></h2><p>I received a notification in October 2022 that Heroku is discontinuing its free hosting services in November.<br>
-*sad trombone*<br>
-I see little value in paying to maintain an API that is strictly designed to be a learning experience, so the endpoints above will only be available for a brief period.  :-(</p>
 
 </div>
 </div>
