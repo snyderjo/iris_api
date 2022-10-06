@@ -3,3 +3,4 @@ iris_api
 __pycache__/*
 .ipynb_checkpoints/*
 tests.ipynb
+index.ipynb
