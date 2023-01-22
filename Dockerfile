@@ -2,8 +2,8 @@ FROM python:3.10
 
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+COPY requirements2.txt requirements2.txt
+RUN pip3 install -r requirements2.txt
 
 COPY . .
 
