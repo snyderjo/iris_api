@@ -1,0 +1,13 @@
+.git
+.gitignore
+iris_api
+__pycache__
+.ipynb_checkpoints
+
+index.html
+README.md
+Dockerfile
+
+*.json
+*.ipynb
+*.csv
