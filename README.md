@@ -1,10 +1,10 @@
 # iris_api
 
-~~Available for requests at:
-http://snyderjos-iris-api.herokuapp.com~~
+This code estimates three machine learning models (and an ensemble thereof) from Fisher's iris data set, and packages the resulting algorithms into an API, exposing predictions as endpoints.
 
-Heroku ended its free tier, and is no longer hosted at the above.
+### To-Done:
+Create a docker container which serves the same purpose as the initial API.
 
-### To-Do:
-I need to put this into a docker container, and move it to a different cloud provider.
+### To-Do:  
+Move it to a different cloud provider, and test it there.
 
