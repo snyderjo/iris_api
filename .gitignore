@@ -4,3 +4,4 @@ __pycache__/*
 .ipynb_checkpoints/*
 tests.ipynb
 index.ipynb
+_site/
